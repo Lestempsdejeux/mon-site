@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ma Boutique de Jeux</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #F5EBE1; 'couleur de fond du cadre principal
+            color: #222;
+        }
+
+
+.bandeau { 'pour le bandeau texte défilant
+    width: 100%;
+    overflow: hidden;
+    background-color: #DC7B8C;
+    color: white;
+    padding: 10px 0;
+}
+
+.texte-defilant {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: defilement 10s linear infinite;
+}
+
+@keyframes defilement {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+
+.diaporama { 'pour le diaporama
+    width: 600px;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+.diaporama img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+        /* =========================
+           EN-TÊTE
+           ========================= */
+
+        header {
+            background-color: #DC7B8C; 'couleur de fond du cadre supérieur
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            padding: 15px 30px;
+            gap: 30px;
+        }
+
+        /* Logo / image en haut à gauche */
+
+        .logo {
+            width: 150px; 'taille du logo
+            height: 150px;
+            object-fit: contain;
+            background-color: white;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        /* Navigation */
+
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            border: none;
+            background-color: #F5EBE1; 'couleur font bouton inactif
+            color: white;
+            padding: 14px 22px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav button:hover {
+            background-color: #96C6C6; 'couleur font bouton quand souris passe dessus
+            color: #111827;
+            transform: translateY(-2px);
+        }
+
+        nav button.active {
+            background-color: #96C6C6; 'couleur font bouton page active
+            color: #111827;
+        }
+
+        /* =========================
+           CONTENU
+           ========================= */
+
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 25px;
+        }
+
+        .page {
+            display: none;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            animation: apparition 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes apparition {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 34px;
+        }
+
+        h2 {
+            color: #374151;
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           NEWS
+           ========================= */
+
+        .jeux {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .jeu {
+            background-color: #f9fafb;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .jeu h3 {
+            margin-bottom: 10px;
+            color: #f59e0b;
+        }
+
+        /* =========================
+           ÉVÉNEMENTS
+           ========================= */
+
+        .evenements {
+            margin-top: 25px;
+        }
+
+        .evenement {
+            border-left: 5px solid #f59e0b;
+            background-color: #f9fafb;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .date {
+            font-weight: bold;
+            color: #f59e0b;
+            margin-bottom: 8px;
+        }
+
+        /* =========================
+           CONTACT
+           ========================= */
+
+        .contact-info {
+            margin-top: 25px;
+        }
+
+        .contact-item {
+            background-color: #f9fafb;
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+
+        /* =========================
+           PIED DE PAGE
+           ========================= */
+
+        footer {
+            margin-top: 50px;
+            background-color: #DC7B8C; 'couleur font du pied de page
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* =========================
+           VERSION MOBILE
+           ========================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .logo {
+                width: 100px;
+                height: 80px;
+            }
+
+            nav {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            nav button {
+                width: 100%;
+            }
+
+            main {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+
+            .page {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         EN-TÊTE
+         ========================= -->
+
+    <header>
+
+        <!--
+            REMPLACE "logo.png" PAR LE NOM
+            DE TON IMAGE OU DE TON LOGO.
+        -->
+
+        <img src="logo.png" alt="Logo de la boutique" class="logo">
+
+        <nav>
+
+            <button class="nav-button active" onclick="afficherPage('presentation', this)">
+                Présentation
+            </button>
+
+            <button class="nav-button" onclick="afficherPage('news', this)">
+                Nouveautés
+            </button>
+
+            <button class="nav-button" onclick="afficherPage('evenements', this)">
+                Événements à venir
+            </button>
+
+            <button class="nav-button" onclick="afficherPage('achat', this)">
+                Achat en ligne
+            </button>
+
+            <button class="nav-button" onclick="afficherPage('contact', this)">
+                Contact
+            </button>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENU PRINCIPAL
+         ========================= -->
+
+    <main>
+
+<div class="bandeau">
+    <div class="texte-defilant">
+        <strong>Bienvenue sur notre site ! Vous avez la possibilité de commander vos jeux de société en ligne via la rubrique "Achat en ligne" !</strong>
+    </div>
+</div>
+
+        <!-- =========================
+             PAGE PRÉSENTATION
+             ========================= -->
+
+        <section id="presentation" class="page active">
+
+
+<div class="diaporama"> 
+    <img id="photo" src="Diaporama5.jpg" alt="Photo">
+</div>
+
+<script>
+const photos = [
+    "Diaporama5.jpg",
+    "Diaporama1.jpg",
+    "Diaporama2.jpg",
+    "Diaporama3.jpg",
+    "Diaporama4.jpg"
+];
+
+let index = 0;
+
+setInterval(function() {
+    index++;
+
+    if (index >= photos.length) {
+        index = 0;
+    }
+
+    document.getElementById("photo").src = photos[index];
+
+}, 3000); // 3000 = 3 secondes
+</script>
+
+            <h1>Bienvenue chez moi</h1>
+
+            <p>
+              <h2>La boutique</h2>
+Venez découvrir aux portes de Montpellier dans mon village de coeur Mauguio, un espace chaleureux dédié à l’univers du jeu : <br>
+
+🎲 Jeux de société <br>
+🃏 Cartes à collectionner <br>
+🎁 Produits Legami <br>
+👨‍👩‍👧‍👦 Des jeux pour tous les âges et tous les goûts <br>
+            </p>
+            <p>
+<h2>Bien plus qu’une boutique </h2>
+Le concept repose sur 4 façons de vivre le jeu :<br>
+
+  - Acheter : repartir avec son jeu coup de cœur<br>
+  - Louer : découvrir un jeu avant de l'adopter<br>
+  - Jouer sur place : s’installer, tester, partager et rencontrer d’autres joueurs<br>
+  - S'inscrire à des animations (loup garou, tournoi de cartes à collectionner...) <br>
+            </p>
+            <p> 
+<h2>Un lieu de rencontre multigénérationnel</h2>
+L’objectif est de créer un endroit où les générations se mélangent autour d'une même table.<br>
+Enfants, adolescents, parents, grands-parents, amis ou simples curieux : chacun peut trouver sa place.<br>
+
+Le jeu devient un prétexte pour :<br>
+
+  - créer du lien ;<br>
+  - partager un moment ;<br>
+  - découvrir de nouvelles personnes ;<br>
+  - transmettre et apprendre ;<br>
+  - rire et s'amuser ensemble.<br>
+           </p>
+            <p>
+<h2>L'expérience proposée</h2>
+On ne vient pas seulement « acheter un jeu ».<br>
+On vient vivre une expérience : découvrir, essayer, jouer, échanger et revenir.<br>
+           </p>
+            <p>
+
+<h2>La boutique en une phrase</h2>
+
+🎲 DÉS-CONNECTEZ ET VENEZ JOUER !<br>
+
+Une invitation à mettre les écrans de côté, à se retrouver autour d'une table et à reconnecter avec les autres… grâce au jeu.<br>
+
+<strong>« Une boutique de jeux de société, de cartes à collectionner et de produits Legami, pensée comme un véritable lieu de vie où l’on peut acheter, louer, découvrir et jouer sur place. Un espace multigénérationnel où petits et grands se retrouvent autour d’une même passion : le plaisir de jouer ensemble. » </strong>
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE NEWS
+             ========================= -->
+
+        <section id="news" class="page">
+
+            <h1>Nouveautés</h1>
+
+            <p>
+                Découvrez ici notre sélection des meilleurs jeux du moment.
+            </p>
+
+            <div class="jeux">
+
+                <article class="jeu">
+                    <h3>Jeu du moment #1</h3>
+                    <p>
+        <img src="Jeux1.png" alt="Sélection1" class="logo"><br>
+                        Flip 7 Vengeance reprend le plaisir immédiat de Flip 7 et y ajoute une bonne dose de coups bas. 
+Dans ce jeu de cartes en stop ou encore, vous tentez d’accumuler des cartes sans faire de doublon, 
+tout en guettant le bon moment pour vous arrêter avant de tout perdre.
+
+Ici, la tension monte d’un cran : les nouvelles cartes permettent de viser les autres joueurs, de voler, d’échanger ou de faire défausser. 
+Un jeu d’ambiance malin, rapide et taquin, parfait pour des parties pleines de rebondissements où chaque carte retournée peut faire basculer la table.
+                    </p>
+                </article>
+
+                <article class="jeu">
+                    <h3>Jeu du moment #2</h3>
+<p>
+        <img src="Jeux2.png" alt="Sélection1" class="logo"><br>
+                        La nouvelle Star du karaoké : c'est vous !
+
+Staraoké est un jeu d’ambiance pour 2 à 8 joueurs. Dans ce jeu musical, soyez le plus rapide à vous saisir du micro pour chanter, avant vos adversaires, un extrait de chanson en lien avec le mot, le thème ou l’artiste indiqué sur la carte au centre de la table. Si vous réussissez à gagner 7 cartes, vous remportez la partie. Alors, prêt(e)s à pousser la chansonnette ?
+                    </p>
+                </article>
+
+                <article class="jeu">
+                    <h3>Jeu du moment #3</h3>
+                    <p>
+        <img src="Jeux3.png" alt="Sélection1" class="logo"><br>
+                        La course la plus chaotique du monde ludique !
+
+Athlètes de Compète est un jeu d'ambiance 2 à 6 joueurs. Dans ce jeu de course complètement déjanté, vous recrutez une équipe d’athlètes aux pouvoirs farfelus et participez à quatre courses où rebondissements, chutes et retournements de situation s’enchaînent jusqu’à la ligne d’arrivée.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE ÉVÉNEMENTS
+             ========================= -->
+
+        <section id="evenements" class="page">
+
+            <h1>Événements à venir</h1>
+
+            <p>
+                Retrouvez ici les animations et événements organisés
+                dans notre boutique au cours du mois à venir.
+            </p>
+
+            <div class="evenements">
+
+                <article class="evenement">
+
+                    <div class="date">
+                        25 août
+                    </div>
+
+                    <h2>Tournoi Lorcana</h2>
+
+                    <p>
+        <img src="Animation2.png" alt="Sélection1" class="logo"><br>
+                        Venez participer à ce tournoi familial et reparter avec des cadeaux. <strong>10 participants maximum.</strong>
+                    </p>
+
+                </article>
+
+
+                <article class="evenement">
+
+                    <div class="date">
+                        26 août
+                    </div>
+
+                    <h2>Tournoi One-piece</h2>
+
+                    <p>
+        <img src="Animation4.png" alt="Sélection1" class="logo"><br>
+                        Venez participer à ce tournoi et reparter avec des cadeaux. <strong>10 participants maximum.</strong>
+                    </p>
+
+                </article>
+
+
+                <article class="evenement">
+
+                    <div class="date">
+                        18 septembre
+                    </div>
+
+                    <h2>Soirée Loup Garou</h2>
+
+                    <p>
+        <img src="Animation1.png" alt="Sélection1" class="logo"><br>
+                        Venez participer à une soirée où la phrase culte est : <strong>"La nuit tombe sur le village, les villageois s'endorment, les loups-garous ouvrent les yeux…" - 20 participants maximum </strong>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+             PAGE ACHAT
+             ========================= -->
+
+        <section id="achat" class="page">
+
+            <h1>Achat en ligne</h1>
+
+            <p>
+                Vous souhaitez commander des articles en ligne?
+
+<a href="https://lestempsdejeux.hiboutik.com/shop/">Aller sur la boutique en ligne</a>
+            </p>
+
+            <div class="contact-info">
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE CONTACT
+             ========================= -->
+
+        <section id="contact" class="page">
+
+            <h1>Contact</h1>
+
+            <p>
+                Vous souhaitez nous contacter ou obtenir davantage
+                d'informations ? Retrouvez ci-dessous tous nos moyens
+                de contact.
+            </p>
+
+            <div class="contact-info">
+
+                <div class="contact-item">
+                    <strong>Adresse</strong>
+                    152 Gd rue François Mitterrand<br>
+                    34130 Mauguio
+                </div>
+
+                <div class="contact-item">
+                    <strong>Téléphone</strong>
+                    07 43 15 99 63
+                </div>
+
+                <div class="contact-item">
+                    <strong>Email</strong>
+                    lestempsdejeux@yahoo.fr
+                </div>
+
+                <div class="contact-item">
+                    <strong>Horaires</strong>
+                    Mardi - Samedi : 09h30 - 12h30 / 15h30 - 18h30<br>
+		    Dimanche : 10h00 - 12h00
+                </div>
+
+                <div class="contact-item">
+                    <strong>Réseaux sociaux</strong>
+                    <a href="https://www.instagram.com/les.temps.de.jeux.34?igsi=bHJ4azk4ZHNhZnp4&utm_source=qr" target="_blank">
+    Suivez-moi sur Instagram
+</a><br>
+<a href="https://www.facebook.com/share/1C7FjYZb1S/?mibextid=wwXIfr" target="_blank">
+    Suivez-moi sur Facebook
+</a>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         PIED DE PAGE
+         ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Les temps de jeux - Tous droits réservés
+        </p>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
+
+    <script>
+
+        function afficherPage(pageId, bouton) {
+
+            // Masquer toutes les pages
+            const pages = document.querySelectorAll('.page');
+
+            pages.forEach(function(page) {
+                page.classList.remove('active');
+            });
+
+
+            // Afficher la page sélectionnée
+            document.getElementById(pageId).classList.add('active');
+
+
+            // Retirer la classe active de tous les boutons
+            const boutons = document.querySelectorAll('.nav-button');
+
+            boutons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+
+            // Activer le bouton sélectionné
+            bouton.classList.add('active');
+
+
+            // Revenir en haut de la page
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+    </script>
+
+</body>
+</html>
